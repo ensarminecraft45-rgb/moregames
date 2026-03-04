@@ -1,562 +1,690 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>More Games (Stabil)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
-    <style>
-        /* ========================================= */
-        /* I. GENEL ve KARANLIK MOD STİLLERİ */
-        /* ========================================= */
-        :root {
-            --bg-color: #1a1a1a;
-            --text-color: #f0f0f0;
-            --main-color: #00bcd4; /* Açık Mavi/Turkuaz */
-            --card-bg: #2a2a2a;
-            --border-color: #444;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ELNAME — Elektronik</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --g0: #0a0f0a;
+  --g1: #0d1510;
+  --g2: #112018;
+  --g3: #1a3328;
+  --accent: #22c55e;
+  --accent2: #16a34a;
+  --accent3: #4ade80;
+  --glow: rgba(34,197,94,0.18);
+  --glowS: rgba(34,197,94,0.08);
+  --text: #e8f5e3;
+  --textMid: #a3c8a0;
+  --textDim: #5a8a60;
+  --border: rgba(34,197,94,0.15);
+  --borderH: rgba(34,197,94,0.4);
+  --card: rgba(17,32,24,0.85);
+  --white: #f0fdf4;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Outfit',sans-serif;background:var(--g0);color:var(--text);min-height:100vh;overflow-x:hidden;}
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-track{background:var(--g1);}
+::-webkit-scrollbar-thumb{background:var(--accent2);border-radius:3px;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(34,197,94,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(34,197,94,0.04) 1px,transparent 1px);background-size:40px 40px;pointer-events:none;z-index:0;}
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            margin: 0;
-            padding: 0;
-            line-height: 1.6;
-        }
+nav{position:sticky;top:0;z-index:100;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 40px;background:rgba(10,15,10,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);}
+.logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:3px;color:var(--accent3);cursor:pointer;text-transform:uppercase;}
+.logo span{color:var(--textMid);font-weight:400;}
+nav ul{display:flex;gap:28px;list-style:none;}
+nav ul li a{color:var(--textMid);font-size:13px;font-weight:500;letter-spacing:.5px;cursor:pointer;transition:color .2s;text-transform:uppercase;}
+nav ul li a:hover{color:var(--accent3);}
+.nav-right{display:flex;gap:10px;align-items:center;}
+.cart-btn{position:relative;background:var(--accent);color:var(--g0);border:none;padding:8px 20px;border-radius:6px;font-family:'Outfit',sans-serif;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;letter-spacing:.5px;}
+.cart-btn:hover{background:var(--accent3);box-shadow:0 0 18px var(--glow);}
+.cart-count{position:absolute;top:-7px;right:-7px;background:var(--g0);color:var(--accent3);border:1.5px solid var(--accent);border-radius:50%;width:18px;height:18px;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+.panel-btn{background:transparent;border:1px solid var(--border);color:var(--textMid);padding:7px 16px;border-radius:6px;font-family:'Outfit',sans-serif;font-size:13px;cursor:pointer;transition:all .2s;}
+.panel-btn:hover{border-color:var(--accent);color:var(--accent);}
 
-        .container {
-            max-width: 1200px;
-            margin: 30px auto;
-            padding: 0 20px;
-        }
+.page{display:none;}
+.page.active{display:block;}
 
-        header {
-            text-align: center;
-            padding: 40px 0 20px;
-        }
+/* HERO */
+.hero{position:relative;padding:110px 40px 90px;text-align:center;overflow:hidden;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(34,197,94,0.12) 0%,transparent 70%);}
+.hero-tag{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--border);background:var(--glowS);color:var(--accent3);padding:5px 16px;border-radius:20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;margin-bottom:28px;}
+.hero h1{font-family:'Syne',sans-serif;font-size:clamp(40px,6vw,82px);font-weight:800;line-height:1.05;color:var(--white);margin-bottom:20px;letter-spacing:-1px;}
+.hero h1 .green{color:var(--accent3);text-shadow:0 0 40px rgba(74,222,128,0.4);}
+.hero p{color:var(--textMid);font-size:17px;max-width:520px;margin:0 auto 40px;line-height:1.7;}
+.hero-cta{display:inline-flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+.btn-primary{background:var(--accent);color:var(--g0);border:none;padding:13px 34px;border-radius:6px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;letter-spacing:.3px;}
+.btn-primary:hover{background:var(--accent3);box-shadow:0 0 24px rgba(74,222,128,0.5);transform:translateY(-2px);}
+.btn-outline{background:transparent;color:var(--accent3);border:1px solid var(--borderH);padding:13px 34px;border-radius:6px;font-family:'Outfit',sans-serif;font-size:15px;cursor:pointer;transition:all .2s;}
+.btn-outline:hover{background:var(--glowS);}
 
-        h1 {
-            color: var(--main-color);
-            font-size: 3em;
-            margin-bottom: 5px;
-        }
+.section{padding:70px 40px;max-width:1240px;margin:0 auto;}
+.section-header{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:36px;}
+.section-title{font-family:'Syne',sans-serif;font-size:30px;font-weight:700;color:var(--white);letter-spacing:-.5px;}
+.section-title .accent{color:var(--accent3);}
 
-        h2 {
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 10px;
-            margin-top: 40px;
-            color: var(--main-color);
-        }
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px;}
+.filter-chip{padding:6px 16px;border-radius:20px;border:1px solid var(--border);background:transparent;color:var(--textMid);font-family:'Outfit',sans-serif;font-size:12px;cursor:pointer;transition:all .2s;letter-spacing:.5px;text-transform:uppercase;}
+.filter-chip:hover,.filter-chip.active{border-color:var(--accent);color:var(--accent3);background:var(--glowS);}
 
-        /* Yükleme Bölümü */
-        #swf-yukle-bolumu, .oyun-alani {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-        }
+.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px;}
+.product-card{background:var(--card);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:all .25s;cursor:pointer;backdrop-filter:blur(8px);position:relative;}
+.product-card:hover{border-color:var(--accent);transform:translateY(-5px);box-shadow:0 16px 40px rgba(0,0,0,.4),0 0 0 1px rgba(34,197,94,.2);}
+.product-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);opacity:0;transition:opacity .3s;}
+.product-card:hover::before{opacity:1;}
+.product-img{width:100%;height:200px;background:linear-gradient(135deg,var(--g2),var(--g3));display:flex;align-items:center;justify-content:center;font-size:72px;position:relative;overflow:hidden;}
+.product-img::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at center,var(--glowS),transparent 70%);}
+.product-badge{position:absolute;top:10px;left:10px;background:var(--accent);color:var(--g0);padding:3px 9px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;z-index:1;}
+.badge-sale{background:#f59e0b!important;color:#000!important;}
+.badge-hot{background:#ef4444!important;color:#fff!important;}
+.product-info{padding:16px 18px 18px;}
+.product-category{font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:5px;}
+.product-name{font-family:'Syne',sans-serif;font-size:16px;font-weight:700;color:var(--white);margin-bottom:7px;line-height:1.3;}
+.product-desc{font-size:12px;color:var(--textDim);line-height:1.6;margin-bottom:14px;}
+.product-footer{display:flex;align-items:center;justify-content:space-between;}
+.product-price{font-family:'Syne',sans-serif;font-size:21px;font-weight:700;color:var(--accent3);}
+.product-price small{font-size:12px;color:var(--textDim);text-decoration:line-through;font-weight:400;font-family:'Outfit',sans-serif;margin-left:5px;}
+.stock-tag{font-size:10px;color:var(--textDim);margin-top:5px;}
+.add-btn{background:var(--g3);border:1px solid var(--border);color:var(--accent3);width:36px;height:36px;border-radius:8px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.add-btn:hover{background:var(--accent);color:var(--g0);border-color:var(--accent);box-shadow:0 0 12px var(--glow);}
+.out-of-stock{opacity:.5;}
+.out-of-stock .add-btn{cursor:not-allowed;}
+.out-of-stock .add-btn:hover{background:var(--g3);color:var(--textDim);border-color:var(--border);box-shadow:none;}
 
-        #swf-yukle-bolumu label {
-            display: inline-block;
-            background-color: var(--main-color);
-            color: #1a1a1a;
-            padding: 12px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 1em;
-            border: none;
-        }
+.stats-bar{background:linear-gradient(90deg,var(--g1),var(--g2),var(--g1));border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:40px;display:flex;justify-content:center;gap:80px;flex-wrap:wrap;}
+.stat-item{text-align:center;}
+.stat-num{font-family:'Syne',sans-serif;font-size:42px;font-weight:800;color:var(--accent3);display:block;text-shadow:0 0 20px rgba(74,222,128,.3);}
+.stat-lbl{font-size:11px;color:var(--textDim);letter-spacing:2px;text-transform:uppercase;margin-top:4px;}
 
-        #swf-yukle-bolumu label:hover {
-            background-color: #00e5ff;
-        }
+/* CART */
+.cart-overlay{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:200;display:none;backdrop-filter:blur(4px);}
+.cart-sidebar{position:fixed;right:-440px;top:0;bottom:0;width:440px;background:var(--g1);z-index:201;display:flex;flex-direction:column;transition:right .35s cubic-bezier(.4,0,.2,1);border-left:1px solid var(--border);}
+.cart-open .cart-overlay{display:block;}
+.cart-open .cart-sidebar{right:0;}
+.cart-header{padding:22px 28px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.cart-header h2{font-family:'Syne',sans-serif;font-size:20px;font-weight:700;color:var(--white);}
+.close-btn{background:none;border:none;color:var(--textDim);font-size:20px;cursor:pointer;width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:all .2s;}
+.close-btn:hover{background:var(--g3);color:var(--text);}
+.cart-items{flex:1;overflow-y:auto;padding:16px 28px;}
+.cart-item{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--border);align-items:center;}
+.cart-item-img{width:56px;height:56px;border-radius:8px;background:var(--g3);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:26px;flex-shrink:0;}
+.cart-item-details{flex:1;}
+.cart-item-name{font-family:'Syne',sans-serif;font-size:14px;color:var(--white);}
+.cart-item-price{color:var(--accent);font-size:13px;font-weight:600;margin-top:2px;}
+.cart-item-qty{display:flex;align-items:center;gap:8px;margin-top:6px;}
+.qty-btn{background:var(--g3);border:1px solid var(--border);color:var(--text);width:22px;height:22px;border-radius:4px;cursor:pointer;font-size:13px;transition:all .15s;}
+.qty-btn:hover{border-color:var(--accent);color:var(--accent);}
+.cart-item-remove{background:none;border:none;color:var(--textDim);cursor:pointer;font-size:16px;padding:4px;transition:color .2s;}
+.cart-item-remove:hover{color:#ef4444;}
+.cart-footer{padding:18px 28px;border-top:1px solid var(--border);background:var(--g2);}
+.cart-total{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+.cart-total span:first-child{font-size:13px;color:var(--textDim);}
+.cart-total span:last-child{font-family:'Syne',sans-serif;font-size:24px;font-weight:700;color:var(--accent3);}
+.checkout-btn{width:100%;background:var(--accent);color:var(--g0);border:none;padding:14px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;}
+.checkout-btn:hover{background:var(--accent3);box-shadow:0 0 20px var(--glow);}
+.empty-cart{text-align:center;padding:60px 20px;color:var(--textDim);}
+.empty-cart .icon{font-size:52px;margin-bottom:14px;}
 
-        #local-file-input {
-            display: none; 
-        }
-        
-        /* Oyun Listesi */
-        .oyun-listesi {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); 
-            gap: 15px;
-            margin-top: 20px;
-        }
+/* PASSWORD MODAL */
+.pw-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:500;display:none;align-items:center;justify-content:center;backdrop-filter:blur(10px);}
+.pw-overlay.open{display:flex;}
+.pw-box{background:var(--g1);border:1px solid var(--border);border-radius:16px;padding:44px 48px;width:380px;text-align:center;box-shadow:0 0 60px rgba(34,197,94,.12);position:relative;}
+.pw-box::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,var(--accent),transparent);}
+.pw-icon{font-size:48px;margin-bottom:16px;}
+.pw-box h2{font-family:'Syne',sans-serif;font-size:22px;font-weight:700;color:var(--white);margin-bottom:8px;}
+.pw-box p{font-size:13px;color:var(--textDim);margin-bottom:28px;}
+.pw-input{width:100%;background:var(--g2);border:1px solid var(--border);border-radius:8px;padding:13px 18px;font-family:'Syne',sans-serif;font-size:22px;letter-spacing:10px;color:var(--accent3);text-align:center;outline:none;margin-bottom:12px;transition:border-color .2s;}
+.pw-input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--glowS);}
+.pw-input.err{border-color:#ef4444;animation:shake .3s;}
+@keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-8px);}75%{transform:translateX(8px);};}
+.pw-error{font-size:12px;color:#f87171;margin-bottom:14px;min-height:16px;}
+.pw-submit{width:100%;background:var(--accent);color:var(--g0);border:none;padding:13px;border-radius:8px;font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all .2s;}
+.pw-submit:hover{background:var(--accent3);box-shadow:0 0 18px var(--glow);}
+.pw-cancel{margin-top:12px;background:none;border:none;color:var(--textDim);font-size:13px;cursor:pointer;font-family:'Outfit',sans-serif;transition:color .2s;}
+.pw-cancel:hover{color:var(--text);}
 
-        .oyun-kart {
-            background-color: var(--card-bg);
-            padding: 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            border: 1px solid var(--border-color);
-            text-align: center;
-        }
+/* ADMIN */
+.admin-layout{display:flex;min-height:calc(100vh - 62px);}
+.admin-sidebar{width:220px;background:var(--g1);border-right:1px solid var(--border);padding:24px 0;flex-shrink:0;position:sticky;top:62px;height:calc(100vh - 62px);overflow-y:auto;}
+.admin-sidebar h3{color:var(--accent);font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:0 20px 10px;border-bottom:1px solid var(--border);margin-bottom:8px;font-family:'Outfit',sans-serif;font-weight:600;}
+.s-item{display:flex;align-items:center;gap:9px;padding:10px 20px;color:var(--textDim);font-size:13px;cursor:pointer;transition:all .2s;border-left:2px solid transparent;}
+.s-item:hover{color:var(--text);background:var(--glowS);}
+.s-item.active{color:var(--accent3);background:rgba(34,197,94,.07);border-left-color:var(--accent);}
+.s-icon{font-size:15px;}
 
-        .oyun-kart:hover {
-            background-color: #3a3a3a;
-            transform: translateY(-3px);
-        }
+.admin-content{flex:1;padding:32px 36px;background:var(--g0);min-height:100%;position:relative;}
+.admin-page{display:none;}
+.admin-page.active{display:block;}
+.admin-title{font-family:'Syne',sans-serif;font-size:26px;font-weight:700;color:var(--white);margin-bottom:24px;letter-spacing:-.3px;}
 
-        .oyun-kart h3 {
-            margin: 0 0 5px 0;
-            color: var(--main-color);
-            font-size: 1.1em;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-        
-        .oyun-kart p {
-            font-size: 0.8em;
-            color: #bbb;
-            margin: 0;
-        }
-        
-        /* Flash Oyun Alanı */
-        .oyun-alani object, .oyun-alani embed {
-            display: block;
-            margin: 20px auto;
-            max-width: 100%;
-            height: 500px;
-            border: 2px solid var(--main-color);
-            border-radius: 5px;
-        }
-        
-        /* ========================================= */
-        /* II. GİZLENEN BÖLÜM STİLLERİ (Oyunlar) */
-        /* ========================================= */
-        #flappy-bird-section, #iframe-game-section { 
-            display: none; 
-            background-color: #1a1a1a;
-            padding: 0;
-            margin: 0;
-            min-height: 100vh;
-            text-align: center;
-            position: relative; 
-        }
-        
-        /* Oyun iFrame Stilleri */
-        #iframe-game-section iframe { 
-            width: 100%;
-            height: 100vh;
-            border: none;
-        }
-        
-        /* Geri dön butonu (Tüm oyunlar için ortak stil) */
-        .back-btn {
-            position: fixed; 
-            top: 20px;
-            left: 20px;
-            background: var(--card-bg);
-            color: var(--text-color);
-            padding: 10px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-family: 'Segoe UI', sans-serif;
-            font-weight: bold;
-            cursor: pointer;
-            border: 1px solid var(--border-color);
-            z-index: 1000;
-        }
-        
-        /* Flappy Bird Stilleri (Sadece kapsayıcı) */
-        #game-container {
-            position: relative;
-            width: 400px;
-            height: 600px;
-            margin: 20px auto;
-            background: #70c5ce;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-        }
-        #game-container #redBtn { left:calc(50% - 190px); }
-        #game-container #yellowBtn { left:calc(50% - 45px); }
-        #game-container #blueBtn { left:calc(50% + 100px); }
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:16px;margin-bottom:28px;}
+.stat-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:20px 22px;transition:border-color .2s;backdrop-filter:blur(8px);}
+.stat-card:hover{border-color:var(--borderH);}
+.stat-card .lbl{font-size:11px;color:var(--textDim);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px;}
+.stat-card .val{font-family:'Syne',sans-serif;font-size:32px;font-weight:800;color:var(--white);}
+.stat-card .val.gr{color:var(--accent3);text-shadow:0 0 16px rgba(74,222,128,.3);}
+.stat-card .chg{font-size:11px;margin-top:5px;color:var(--textDim);}
+.chg.up{color:#22c55e;}
 
-        /* Flappy için diğer stiller */
-        .colorBtn {
-            position: absolute; top: 50%; transform: translateY(-50%); width: 90px; height: 90px;
-            border-radius: 50%; border: 4px solid white; cursor: pointer; font-size: 14px; color: white;
-            font-weight: bold; box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); font-family: 'Press Start 2P', monospace;
-            text-shadow: 1px 1px 2px black;
-        }
-        #restartBtn {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); padding: 15px 30px;
-            font-size: 18px; display: none; cursor: pointer; border-radius: 10px; border: none;
-            background: #ff4d4d; color: white; font-family: 'Press Start 2P', monospace; box-shadow: 0 5px #b30000;
-        }
+.card-box{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;margin-bottom:22px;backdrop-filter:blur(8px);}
+.cb-header{padding:16px 22px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;}
+.cb-title{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:var(--white);}
 
-    </style>
-    <script src="https://unpkg.com/@ruffle-rs/ruffle"></script>
+table{width:100%;border-collapse:collapse;}
+th{text-align:left;padding:10px 18px;font-size:10px;color:var(--textDim);text-transform:uppercase;letter-spacing:1.5px;background:rgba(0,0,0,.2);border-bottom:1px solid var(--border);}
+td{padding:12px 18px;font-size:13px;border-bottom:1px solid rgba(34,197,94,.05);vertical-align:middle;color:var(--text);}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:rgba(34,197,94,.03);}
+
+.bdg{display:inline-block;padding:3px 8px;border-radius:4px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;}
+.bg{background:rgba(34,197,94,.15);color:var(--accent3);border:1px solid rgba(34,197,94,.3);}
+.by{background:rgba(245,158,11,.15);color:#fbbf24;border:1px solid rgba(245,158,11,.3);}
+.br{background:rgba(239,68,68,.15);color:#f87171;border:1px solid rgba(239,68,68,.3);}
+.bb{background:rgba(59,130,246,.15);color:#93c5fd;border:1px solid rgba(59,130,246,.3);}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.form-group{display:flex;flex-direction:column;gap:7px;}
+.form-group.full{grid-column:1/-1;}
+.form-group label{font-size:12px;font-weight:600;color:var(--textMid);letter-spacing:.5px;text-transform:uppercase;}
+.form-group input,.form-group select,.form-group textarea{padding:10px 14px;background:var(--g2);border:1px solid var(--border);border-radius:7px;font-family:'Outfit',sans-serif;font-size:14px;color:var(--text);outline:none;transition:border-color .2s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--glowS);}
+.form-group select option{background:var(--g1);}
+.form-group textarea{resize:vertical;min-height:80px;}
+
+.emoji-picker{display:flex;flex-wrap:wrap;gap:7px;margin-top:4px;}
+.emoji-opt{width:38px;height:38px;border:1px solid var(--border);border-radius:7px;background:var(--g2);font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;}
+.emoji-opt:hover{border-color:var(--accent);}
+.emoji-opt.sel{border-color:var(--accent);background:rgba(34,197,94,.1);box-shadow:0 0 8px var(--glowS);}
+
+.submit-btn{background:var(--accent);color:var(--g0);border:none;padding:12px 28px;border-radius:7px;font-family:'Outfit',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .2s;margin-top:6px;}
+.submit-btn:hover{background:var(--accent3);box-shadow:0 0 18px var(--glow);}
+
+.act-btn{background:transparent;border:1px solid var(--border);color:var(--textMid);padding:4px 12px;border-radius:5px;font-family:'Outfit',sans-serif;font-size:12px;cursor:pointer;transition:all .15s;margin-right:4px;}
+.act-btn:hover{border-color:var(--accent);color:var(--accent3);}
+.act-btn.del:hover{border-color:#ef4444;color:#f87171;background:rgba(239,68,68,.08);}
+
+.search-bar{display:flex;gap:10px;margin-bottom:20px;}
+.search-bar input{flex:1;padding:9px 16px;background:var(--g2);border:1px solid var(--border);border-radius:7px;font-family:'Outfit',sans-serif;font-size:13px;color:var(--text);outline:none;transition:border-color .2s;}
+.search-bar input:focus{border-color:var(--accent);}
+
+.chart-wrap{display:flex;align-items:flex-end;gap:10px;height:110px;padding:14px 20px 0;}
+.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;height:100%;justify-content:flex-end;}
+.bar{width:100%;background:linear-gradient(180deg,var(--accent3),var(--accent2));border-radius:4px 4px 0 0;transition:height .5s cubic-bezier(.4,0,.2,1);min-height:3px;}
+.bar-lbl{font-size:9px;color:var(--textDim);}
+
+.toast{position:fixed;bottom:24px;right:24px;background:var(--g2);color:var(--text);border:1px solid var(--accent);padding:12px 20px;border-radius:8px;font-size:13px;z-index:999;opacity:0;transform:translateY(16px);transition:all .3s;pointer-events:none;box-shadow:0 0 20px var(--glowS);}
+.toast.show{opacity:1;transform:translateY(0);}
+
+footer{background:var(--g1);border-top:1px solid var(--border);text-align:center;padding:36px 40px;}
+footer .f-logo{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;letter-spacing:3px;color:var(--accent3);margin-bottom:10px;}
+footer p{font-size:13px;color:var(--textDim);line-height:1.8;}
+
+@media(max-width:768px){.form-grid{grid-template-columns:1fr;}.admin-sidebar{display:none;}nav ul{display:none;}.hero h1{font-size:36px;}}
+</style>
 </head>
 <body>
 
-    <section id="main-section">
-        <header>
-            <h1>More Games</h1>
-            <p>Adobe Flash, HTML5 ve Classic Oyunlar Bir Arada! (Stabil Sürümler)</p>
-        </header>
+<nav>
+  <div class="logo" onclick="showPage('shop')">EL<span>name</span></div>
+  <ul>
+    <li><a onclick="showPage('shop')">Mağaza</a></li>
+    <li><a onclick="document.getElementById('prods').scrollIntoView({behavior:'smooth'})">Ürünler</a></li>
+    <li><a>Hakkımızda</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="panel-btn" onclick="openLogin()">⚙ Panel</button>
+    <button class="cart-btn" onclick="toggleCart()">🛒 Sepet<span class="cart-count" id="cartCount">0</span></button>
+  </div>
+</nav>
 
-        <div class="container">
-            
-            <div id="swf-yukle-bolumu">
-                <h2>Kendi SWF Dosyanızı Yerelden Açın (Flash)</h2>
-                <p style="color:#aaa;">*Dosyanız sunucuya yüklenmez. Ruffle ile tarayıcınızda açılır.</p>
-                <input type="file" id="local-file-input" accept=".swf" onchange="localSwfAc(event)">
-                <label for="local-file-input">SWF Dosyası Seç</label>
+<!-- CART -->
+<div class="cart-overlay" onclick="toggleCart()"></div>
+<div class="cart-sidebar">
+  <div class="cart-header"><h2>Sepetim</h2><button class="close-btn" onclick="toggleCart()">✕</button></div>
+  <div class="cart-items" id="cartItems"></div>
+  <div class="cart-footer">
+    <div class="cart-total"><span>Toplam</span><span id="cartTotal">₺0</span></div>
+    <button class="checkout-btn" onclick="checkout()">Satın Al →</button>
+  </div>
+</div>
+
+<!-- PASSWORD -->
+<div class="pw-overlay" id="pwOverlay">
+  <div class="pw-box">
+    <div class="pw-icon">🔐</div>
+    <h2>Yönetim Paneli</h2>
+    <p>Devam etmek için şifrenizi girin</p>
+    <input class="pw-input" id="pwInput" type="password" maxlength="10" placeholder="••••"
+      onkeydown="if(event.key==='Enter')checkPw()" oninput="document.getElementById('pwError').textContent=''">
+    <div class="pw-error" id="pwError"></div>
+    <button class="pw-submit" onclick="checkPw()">Giriş Yap →</button>
+    <br><button class="pw-cancel" onclick="closePw()">İptal</button>
+  </div>
+</div>
+
+<!-- SHOP PAGE -->
+<div id="page-shop" class="page active">
+  <div class="hero">
+    <div class="hero-tag">⚡ Teknoloji · Kalite · Hız</div>
+    <h1>Geleceğin<br><span class="green">Elektroniği</span><br>Burada</h1>
+    <p>En yeni laptop, telefon, kulaklık ve akıllı cihazlar. Hızlı kargo, güvenli alışveriş.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="document.getElementById('prods').scrollIntoView({behavior:'smooth'})">Ürünleri Keşfet</button>
+      <button class="btn-outline">Kampanyalar</button>
+    </div>
+  </div>
+
+  <div class="section" id="prods">
+    <div class="section-header">
+      <h2 class="section-title">Ürün <span class="accent">Kataloğu</span></h2>
+    </div>
+    <div class="filter-bar">
+      <button class="filter-chip active" onclick="setF(this,'')">Tümü</button>
+      <button class="filter-chip" onclick="setF(this,'Laptop')">Laptop</button>
+      <button class="filter-chip" onclick="setF(this,'Telefon')">Telefon</button>
+      <button class="filter-chip" onclick="setF(this,'Kulaklık')">Kulaklık</button>
+      <button class="filter-chip" onclick="setF(this,'Tablet')">Tablet</button>
+      <button class="filter-chip" onclick="setF(this,'Aksesuarlar')">Aksesuarlar</button>
+      <button class="filter-chip" onclick="setF(this,'Oyun')">Oyun</button>
+    </div>
+    <div class="product-grid" id="productGrid"></div>
+  </div>
+
+  <div class="stats-bar">
+    <div class="stat-item"><span class="stat-num" id="statP">0</span><span class="stat-lbl">Ürün Çeşidi</span></div>
+    <div class="stat-item"><span class="stat-num" id="statS">0+</span><span class="stat-lbl">Mutlu Müşteri</span></div>
+    <div class="stat-item"><span class="stat-num">24H</span><span class="stat-lbl">Hızlı Kargo</span></div>
+    <div class="stat-item"><span class="stat-num">%100</span><span class="stat-lbl">Güvenli Ödeme</span></div>
+  </div>
+
+  <footer>
+    <div class="f-logo">ELNAME</div>
+    <p>Türkiye'nin güvenilir elektronik mağazası.</p>
+    <p style="margin-top:6px;font-size:11px;opacity:.4">© 2025 Elname Elektronik. Tüm hakları saklıdır.</p>
+  </footer>
+</div>
+
+<!-- ADMIN PAGE -->
+<div id="page-admin" class="page">
+  <div class="admin-layout">
+    <div class="admin-sidebar">
+      <h3>Elname Panel</h3>
+      <div class="s-item active" onclick="showAP('dashboard',this)"><span class="s-icon">📊</span>Genel Bakış</div>
+      <div class="s-item" onclick="showAP('products',this)"><span class="s-icon">📦</span>Ürünler</div>
+      <div class="s-item" onclick="showAP('add',this)"><span class="s-icon">➕</span>Ürün Ekle</div>
+      <div class="s-item" onclick="showAP('orders',this)"><span class="s-icon">🛍️</span>Siparişler</div>
+      <div class="s-item" onclick="showAP('report',this)"><span class="s-icon">📈</span>Satış Raporu</div>
+      <div class="s-item" style="margin-top:20px;border-top:1px solid var(--border);padding-top:12px" onclick="showPage('shop')"><span class="s-icon">🏪</span>Mağazaya Dön</div>
+    </div>
+    <div class="admin-content">
+
+      <!-- DASHBOARD -->
+      <div id="ap-dashboard" class="admin-page active">
+        <div class="admin-title">Genel Bakış</div>
+        <div class="stats-grid" id="dashStats"></div>
+        <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:20px">
+          <div class="card-box">
+            <div class="cb-header"><span class="cb-title">Haftalık Satış</span></div>
+            <div class="chart-wrap" id="salesChart"></div>
+            <div style="display:flex;justify-content:space-around;padding:8px 20px 14px">
+              <span style="font-size:9px;color:var(--textDim)">PTS</span><span style="font-size:9px;color:var(--textDim)">SAL</span><span style="font-size:9px;color:var(--textDim)">ÇAR</span><span style="font-size:9px;color:var(--textDim)">PER</span><span style="font-size:9px;color:var(--textDim)">CUM</span><span style="font-size:9px;color:var(--textDim)">CMT</span><span style="font-size:9px;color:var(--textDim)">PAZ</span>
             </div>
-
-            <div class="oyun-alani" id="flash-oyun-alani">
-                <p>Listeden bir Flash oyunu seçin veya kendi bilgisayarınızdaki bir SWF dosyasını açın.</p>
-            </div>
-
-            <h2>🔥 Stabil HTML5 ve Klasik Oyunlar (Siyah Ekran Verme Riski Düşük) 🔥</h2>
-            <p style="color:#aaa;">**NOT:** Listeyi 100+ oyuna tamamlamak için aşağıdaki kartları kopyalayıp sadece 'url' ve 'oyun adı'nı değiştirin.</p>
-            <div class="oyun-listesi">
-                
-                <div class="oyun-kart" onclick="showIframeGame('https://html5.gamedistribution.com/5f8502330a58406f9d2737604a4413ce/', 'Stack Smash')">
-                    <h3>Helix Sıçrama</h3><p>3D refleks oyunu.</p>
-                </div>
-
-                <div class="oyun-kart" onclick="showIframeGame('https://html5.gamedistribution.com/565d70f959e14d489115d0f182c1628d/', 'Color Tunnel')">
-                    <h3>Color Tunnel</h3><p>Hızlı refleks tünel.</p>
-                </div>
-                
-                <div class="oyun-kart" onclick="showIframeGame('https://html5.gamedistribution.com/f0446714b988497693d20a061483f982/', 'Slope Challenge')">
-                    <h3>Eğlenceli Slope</h3><p>Top kontrolü.</p>
-                </div>
-                
-                <div class="oyun-kart" onclick="showIframeGame('https://html5.gamedistribution.com/2b528b8433d348a092c43152d1b82143/', 'Mini Car Racing')">
-                    <h3>Mini Araba Yarışı</h3><p>Hızlı yarış.</p>
-                </div>
-
-                <div class="oyun-kart" onclick="showIframeGame('https://html5.gamedistribution.com/1529a67884d547f380182f25667e452a/', 'Fireboy & Watergirl')">
-                    <h3>Ateş ve Su</h3><p>Platform bulmacası.</p>
-                </div>
-
-                <div class="oyun-kart" onclick="showIframeGame('https://html5.gamedistribution.com/237e8913166847d0af2808064998784d/', 'Basket Random')">
-                    <h3>Basket Atışları</h3><p>Basit spor oyunu.</p>
-                </div>
-
-                <div class="oyun-kart" onclick="showIframeGame('https://html5.gamedistribution.com/b5c873f080b441f391ff18d4512708b1/', '8 Ball Pool')">
-                    <h3>8 Top Bilardo</h3><p>Klasik bilardo.</p>
-                </div>
-
-                <div class="oyun-kart" onclick="showIframeGame('https://html5.gamedistribution.com/b0849318b87c48f299166f2122610d40/', 'Word Search')">
-                    <h3>Kelime Bulmaca</h3><p>Eğlenceli kelime oyunu.</p>
-                </div>
-                
-                <div class="oyun-kart" onclick="showIframeGame('https://html5.gamedistribution.com/c6c641c888e04b4d8342416806e5792d/', 'Zombie Killer')">
-                    <h3>Zombie Harcaması</h3><p>Aksiyon oyunu.</p>
-                </div>
-
-                <div class="oyun-kart" onclick="showIframeGame('https://html5.gamedistribution.com/9783f98c8c724771802b1158525e5102/', 'Airplane Parking')">
-                    <h3>Uçak Park Etme</h3><p>Simülasyon.</p>
-                </div>
-
-                <div class="oyun-kart" onclick="showIframeGame('https://html5.gamedistribution.com/06d2899450374e2fb60a92540b955b26/', '3D Bowling')">
-                    <h3>3D Bowling</h3><p>Spor oyunu.</p>
-                </div>
-                
-                <div class="oyun-kart" onclick="showIframeGame('https://html5.gamedistribution.com/39316e6f777341e2a096c4669866299d/', 'Block Tetris')">
-                    <h3>Blok Tetris</h3><p>Klasik bulmaca.</p>
-                </div>
-
-                <div class="oyun-kart" onclick="showIframeGame('https://html5.gamedistribution.com/a9c1e27a7d42407684065275e7a9b897/', 'Minesweeper')">
-                    <h3>Mayın Tarlası</h3><p>Klasik bulmaca.</p>
-                </div>
-                
-                <div class="oyun-kart" onclick="showIframeGame('https://html5.gamedistribution.com/c8e5900508f74e6eb486c95c2d338a9a/', 'Snail Bob 8')">
-                    <h3>Salyangoz Bob 8</h3><p>Point & Click macera.</p>
-                </div>
-
-                <div class="oyun-kart" onclick="showIframeGame('https://classic.minecraft.net/', 'Minecraft Classic (Web)')">
-                    <h3>Minecraft Classic</h3><p>Resmi Classic Sürümü.</p>
-                </div>
-                
-                <div class="oyun-kart" onclick="showIframeGame('https://html5.gamedistribution.com/a444855476a6448386129841c7b89759/', 'Highway Traffic')">
-                    <h3>Otoyol Trafiği</h3><p>Sonsuz koşu/sürüş.</p>
-                </div>
-
-                <div class="oyun-kart" onclick="showIframeGame('https://html5.gamedistribution.com/096417734c51475c8738379f82d02c84/', 'Penalty Shooters 2')">
-                    <h3>Penaltı Atışları 2</h3><p>Futbol oyunu.</p>
-                </div>
-
-                <div class="oyun-kart" onclick="showIframeGame('https://html5.gamedistribution.com/71239920150d4f6580f588c7407a5182/', 'City Bike Stunt 2')">
-                    <h3>Şehir Bisiklet Akrobasi</h3><p>3D motor oyunu.</p>
-                </div>
-
-                <div class="oyun-kart" onclick="showIframeGame('https://html5.gamedistribution.com/598a287c2c9d4b009e4a30e872c0c7d4/', 'The Last Survivor')">
-                    <h3>Son Kurtulan</h3><p>Korku/Hayatta Kalma.</p>
-                </div>
-
-                <div class="oyun-kart" onclick="showIframeGame('https://html5.gamedistribution.com/55127021379b47e59b32525501865e99/', 'Bubble Shooter')">
-                    <h3>Balon Patlatma</h3><p>Klasik bulmaca.</p>
-                </div>
-
-                <div class="oyun-kart" onclick="showFlappyBird()">
-                    <h3>**Flappy Kuş**</h3>
-                    <p>HTML5 Koda Gömülü.</p>
-                </div>
-                
-                <div class="oyun-kart" onclick="oyunYukle('https://uploads.ungrounded.net/449000/449272_run_2.swf', 'Beceri Parkuru: Koşu 2')">
-                    <h3>Flash Koşu 2</h3><p>Platform oyunu (Flash).</p>
-                </div>
-                
-                <div class="oyun-kart" onclick="oyunYukle('https://uploads.ungrounded.net/72000/72793_Truck_Loader.swf', 'Tır Yükleme Simülasyonu')">
-                    <h3>Tır Sürme Flash</h3><p>Yük taşıma (Flash).</p>
-                </div>
-                
-            </div>
+          </div>
+          <div class="card-box">
+            <div class="cb-header"><span class="cb-title">Son Siparişler</span></div>
+            <div id="recentMini"></div>
+          </div>
         </div>
-    </section>
+      </div>
 
-    <section id="flappy-bird-section">
-        <div id="game-container">
-            <button id="flappy-back-btn" class="back-btn" onclick="showMainSection()"> &lt; Ana Sayfa</button>
-            <canvas id="gameCanvas" width="400" height="600"></canvas>
-            <button id="redBtn" class="colorBtn">Kırmızı</button>
-            <button id="yellowBtn" class="colorBtn">Sarı</button>
-            <button id="blueBtn" class="colorBtn">Mavi</button>
-            <button id="restartBtn">Tekrar Oyna</button>
+      <!-- PRODUCTS -->
+      <div id="ap-products" class="admin-page">
+        <div class="admin-title">Ürün Yönetimi</div>
+        <div class="search-bar">
+          <input type="text" id="pSearch" placeholder="Ürün veya kategori ara..." oninput="renderAdminP()">
+          <button class="submit-btn" style="margin:0;padding:9px 20px" onclick="showAP('add',document.querySelectorAll('.s-item')[2])">+ Yeni Ürün</button>
         </div>
-    </section>
+        <div class="card-box">
+          <table><thead><tr><th>Ürün</th><th>Kategori</th><th>Fiyat</th><th>Stok</th><th>Satış</th><th>Durum</th><th>İşlem</th></tr></thead>
+          <tbody id="adminPTable"></tbody></table>
+        </div>
+      </div>
 
-    <section id="iframe-game-section">
-        <button id="iframe-back-btn" class="back-btn" onclick="showMainSection()"> &lt; Ana Sayfa</button>
-        <iframe id="iframe-oyun" src="" allowfullscreen></iframe>
-    </section>
+      <!-- ADD -->
+      <div id="ap-add" class="admin-page">
+        <div class="admin-title" id="addTitle">Yeni Ürün Ekle</div>
+        <div class="card-box">
+          <div style="padding:26px">
+            <div class="form-grid">
+              <div class="form-group"><label>Ürün Adı *</label><input type="text" id="fName" placeholder="ör. MacBook Pro 14"></div>
+              <div class="form-group"><label>Kategori *</label>
+                <select id="fCat"><option value="">Seçiniz</option><option>Laptop</option><option>Telefon</option><option>Kulaklık</option><option>Tablet</option><option>Aksesuarlar</option><option>Oyun</option></select>
+              </div>
+              <div class="form-group"><label>Fiyat (₺) *</label><input type="number" id="fPrice" placeholder="0" min="0"></div>
+              <div class="form-group"><label>Eski Fiyat (₺)</label><input type="number" id="fOld" placeholder="İndirim öncesi"></div>
+              <div class="form-group"><label>Stok *</label><input type="number" id="fStock" placeholder="0" min="0"></div>
+              <div class="form-group"><label>Etiket</label><input type="text" id="fBadge" placeholder="ör. Yeni, İndirim, Trend"></div>
+              <div class="form-group full"><label>Açıklama *</label><textarea id="fDesc" placeholder="Ürünün teknik özelliklerini yazın..."></textarea></div>
+              <div class="form-group full"><label>İkon</label>
+                <div class="emoji-picker" id="ePicker">
+                  <div class="emoji-opt sel" data-e="💻" onclick="pickE(this)">💻</div>
+                  <div class="emoji-opt" data-e="📱" onclick="pickE(this)">📱</div>
+                  <div class="emoji-opt" data-e="🎧" onclick="pickE(this)">🎧</div>
+                  <div class="emoji-opt" data-e="⌨️" onclick="pickE(this)">⌨️</div>
+                  <div class="emoji-opt" data-e="🖥️" onclick="pickE(this)">🖥️</div>
+                  <div class="emoji-opt" data-e="🖱️" onclick="pickE(this)">🖱️</div>
+                  <div class="emoji-opt" data-e="📷" onclick="pickE(this)">📷</div>
+                  <div class="emoji-opt" data-e="🎮" onclick="pickE(this)">🎮</div>
+                  <div class="emoji-opt" data-e="⌚" onclick="pickE(this)">⌚</div>
+                  <div class="emoji-opt" data-e="🔋" onclick="pickE(this)">🔋</div>
+                  <div class="emoji-opt" data-e="📡" onclick="pickE(this)">📡</div>
+                  <div class="emoji-opt" data-e="🖨️" onclick="pickE(this)">🖨️</div>
+                </div>
+              </div>
+            </div>
+            <button class="submit-btn" id="savePBtn" onclick="saveP()">✓ Kaydet</button>
+            <button class="submit-btn" style="background:var(--g3);color:var(--textMid);margin-left:10px;box-shadow:none" onclick="cancelP()">İptal</button>
+          </div>
+        </div>
+      </div>
 
+      <!-- ORDERS -->
+      <div id="ap-orders" class="admin-page">
+        <div class="admin-title">Siparişler</div>
+        <div class="card-box">
+          <table><thead><tr><th>#</th><th>Müşteri</th><th>Ürünler</th><th>Tutar</th><th>Tarih</th><th>Durum</th><th>Güncelle</th></tr></thead>
+          <tbody id="ordersT"></tbody></table>
+        </div>
+      </div>
 
-    <script>
-        // DOM Elementleri
-        const mainSection = document.getElementById('main-section');
-        const flappySection = document.getElementById('flappy-bird-section');
-        const iframeGameSection = document.getElementById('iframe-game-section'); 
-        const iframeOyun = document.getElementById('iframe-oyun'); 
-        const flashOyunAlani = document.getElementById('flash-oyun-alani');
-        
-        // **********************************
-        // A) SİTE GEÇİŞ YÖNETİMİ
-        // **********************************
+      <!-- REPORT -->
+      <div id="ap-report" class="admin-page">
+        <div class="admin-title">Satış Raporu</div>
+        <div class="stats-grid" id="repStats"></div>
+        <div class="card-box">
+          <div class="cb-header"><span class="cb-title">Kategori Bazlı Satışlar</span></div>
+          <table><thead><tr><th>Kategori</th><th>Ürün</th><th>Satış</th><th>Gelir</th><th>Durum</th></tr></thead>
+          <tbody id="catTable"></tbody></table>
+        </div>
+        <div class="card-box">
+          <div class="cb-header"><span class="cb-title">En Çok Satanlar</span></div>
+          <table><thead><tr><th>Ürün</th><th>Satış</th><th>Gelir</th><th>Stok</th></tr></thead>
+          <tbody id="topT"></tbody></table>
+        </div>
+      </div>
 
-        function hideAllSections() {
-            mainSection.style.display = 'none';
-            flappySection.style.display = 'none';
-            iframeGameSection.style.display = 'none'; 
-            
-            iframeOyun.src = ''; // iframe içini temizle
-            removeFlappyListeners();
-            
-            document.body.style.margin = '0';
-            document.body.style.padding = '0';
-            document.body.style.overflow = 'hidden'; 
-        }
+    </div>
+  </div>
+</div>
 
-        function showFlappyBird() {
-            hideAllSections();
-            flappySection.style.display = 'block';
-            init(); 
-        }
-        
-        /**
-         * iFrame oyunlarını açar.
-         * @param {string} url - Oyunun iframe URL'si.
-         */
-        function showIframeGame(url) {
-            hideAllSections();
-            iframeGameSection.style.display = 'block';
-            iframeOyun.src = url; 
-        }
+<div class="toast" id="toast"></div>
 
+<script>
+let selE='💻', editId=null, cartOpen=false, curF='', nxtId=200;
 
-        function showMainSection() {
-            hideAllSections(); // Önce hepsini temizle ve gizle
-            mainSection.style.display = 'block';
-            
-            // Ana sayfa için body stilini geri al
-            document.body.style.margin = 'inherit'; 
-            document.body.style.padding = 'inherit'; 
-            document.body.style.overflow = 'auto'; 
-            // Flash alanı temizleme (isteğe bağlı)
-             if (flashOyunAlani.querySelector('object')) {
-                 flashOyunAlani.innerHTML = '<p>Listeden bir Flash oyunu seçin veya kendi bilgisayarınızdaki bir SWF dosyasını açın.</p>';
-             }
-        }
+let products=[
+  {id:1,name:'MacBook Pro 14"',cat:'Laptop',price:89999,old:99999,stock:5,badge:'İndirim',desc:'Apple M3 Pro çip, 18GB RAM, 512GB SSD. Profesyoneller için ideal.',emoji:'💻',sales:28},
+  {id:2,name:'iPhone 15 Pro Max',cat:'Telefon',price:74999,old:null,stock:12,badge:'Yeni',desc:'A17 Pro çip, titanyum tasarım, 48MP gelişmiş kamera sistemi.',emoji:'📱',sales:45},
+  {id:3,name:'Sony WH-1000XM5',cat:'Kulaklık',price:8499,old:10999,stock:20,badge:'İndirim',desc:'Sektörün en iyi aktif gürültü engelleme, 30 saat batarya.',emoji:'🎧',sales:63},
+  {id:4,name:'iPad Pro M2 12.9"',cat:'Tablet',price:39999,old:null,stock:8,badge:'',desc:'Liquid Retina XDR ekran, M2 çip, Thunderbolt/USB 4 bağlantı.',emoji:'📱',sales:19},
+  {id:5,name:'PS5 DualSense',cat:'Oyun',price:3299,old:4199,stock:0,badge:'İndirim',desc:'Haptic feedback ve adaptif tetikler ile yeni nesil oyun deneyimi.',emoji:'🎮',sales:37},
+  {id:6,name:'Samsung 4K Monitor 27"',cat:'Aksesuarlar',price:24999,old:null,stock:15,badge:'Trend',desc:'4K UHD IPS panel, 144Hz yenileme, HDR600, USB-C 90W şarj.',emoji:'🖥️',sales:22},
+  {id:7,name:'Logitech MX Keys S',cat:'Aksesuarlar',price:2899,old:3499,stock:30,badge:'',desc:'Akıllı aydınlatma, multi-device, USB-C şarj, ses kısma tuşları.',emoji:'⌨️',sales:41},
+  {id:8,name:'Apple Watch Ultra 2',cat:'Aksesuarlar',price:29999,old:null,stock:7,badge:'Yeni',desc:'49mm titanium, Action button, çift L1+L5 GPS, 60 saat batarya.',emoji:'⌚',sales:16},
+];
 
-        // **********************************
-        // B) FLASH OYUNLARI VE YÜKLEME
-        // **********************************
+let orders=[
+  {id:3001,customer:'Emre Yıldız',items:'MacBook Pro 14" x1',total:89999,date:'2025-06-01',status:'teslim'},
+  {id:3002,customer:'Selin Kaya',items:'iPhone 15 Pro Max, Sony WH-1000XM5',total:83498,date:'2025-06-02',status:'kargoda'},
+  {id:3003,customer:'Burak Demir',items:'PS5 DualSense x2',total:6598,date:'2025-06-03',status:'hazırlanıyor'},
+  {id:3004,customer:'Aylin Şahin',items:'iPad Pro M2 x1',total:39999,date:'2025-06-04',status:'bekliyor'},
+  {id:3005,customer:'Mert Arslan',items:'Samsung 4K Monitor, Logitech MX Keys S',total:27898,date:'2025-06-05',status:'teslim'},
+  {id:3006,customer:'Deniz Can',items:'Apple Watch Ultra 2 x1',total:29999,date:'2025-06-05',status:'kargoda'},
+];
 
-        function oyunYukle(swfUrl, oyunAdi) {
-            // Eğer diğer oyunlar açıksa kapat
-            if (flappySection.style.display === 'block' || iframeGameSection.style.display === 'block') {
-                 showMainSection();
-            }
-            
-            flashOyunAlani.innerHTML = `
-                <h2>Oynanıyor: ${oyunAdi}</h2>
-                <object data="${swfUrl}" type="application/x-shockwave-flash" width="100%" height="500">
-                    <param name="movie" value="${swfUrl}">
-                    <p>Ruffle yükleniyor...</p>
-                </object>
-            `;
-        }
+let cart=[];
 
-        function localSwfAc(event) {
-            const file = event.target.files[0];
-            if (!file) return;
+function showPage(p){
+  document.querySelectorAll('.page').forEach(e=>e.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  if(p==='shop')renderShop();
+  if(p==='admin'){renderDash();renderAdminP();renderOrders();renderReport();}
+  window.scrollTo(0,0);
+}
 
-            if (flappySection.style.display === 'block' || iframeGameSection.style.display === 'block') {
-                 showMainSection();
-            }
+function showAP(p,el){
+  document.querySelectorAll('.admin-page').forEach(e=>e.classList.remove('active'));
+  document.getElementById('ap-'+p).classList.add('active');
+  document.querySelectorAll('.s-item').forEach(e=>e.classList.remove('active'));
+  if(el)el.classList.add('active');
+}
 
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const swfDataURL = e.target.result;
-                const oyunAdi = file.name;
+function openLogin(){
+  document.getElementById('pwOverlay').classList.add('open');
+  document.getElementById('pwInput').value='';
+  document.getElementById('pwError').textContent='';
+  setTimeout(()=>document.getElementById('pwInput').focus(),100);
+}
+function closePw(){document.getElementById('pwOverlay').classList.remove('open');}
+function checkPw(){
+  const v=document.getElementById('pwInput').value;
+  if(v==='123'){closePw();showPage('admin');}
+  else{
+    const inp=document.getElementById('pwInput');
+    document.getElementById('pwError').textContent='❌ Hatalı şifre! Tekrar deneyin.';
+    inp.classList.add('err');
+    setTimeout(()=>inp.classList.remove('err'),400);
+    inp.value='';inp.focus();
+  }
+}
 
-                flashOyunAlani.innerHTML = `
-                    <h2>Oynanıyor: ${oyunAdi} (Yerel Dosya)</h2>
-                    <object data="${swfDataURL}" type="application/x-shockwave-flash" width="100%" height="500">
-                        <param name="movie" value="${swfDataURL}">
-                        <p>Ruffle yerel dosyayı yüklüyor...</p>
-                    </object>
-                `;
-            };
-            reader.readAsDataURL(file);
-        }
+function setF(el,cat){
+  document.querySelectorAll('.filter-chip').forEach(e=>e.classList.remove('active'));
+  el.classList.add('active');curF=cat;renderShop();
+}
 
-        // **********************************
-        // C) FLAPPY BIRD OYUN MANTIĞI (Koda Gömülü)
-        // **********************************
-        
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
-        const redBtn = document.getElementById("redBtn");
-        const yellowBtn = document.getElementById("yellowBtn");
-        const blueBtn = document.getElementById("blueBtn");
-        const restartBtn = document.getElementById("restartBtn");
+function renderShop(){
+  const list=curF?products.filter(p=>p.cat===curF):products;
+  const grid=document.getElementById('productGrid');
+  if(!list.length){grid.innerHTML='<p style="grid-column:1/-1;text-align:center;color:var(--textDim);padding:60px 0;font-size:14px">Bu kategoride ürün bulunamadı.</p>';return;}
+  grid.innerHTML=list.map(p=>{
+    const bc=p.badge==='İndirim'?'badge-sale':p.badge==='Sıcak'||p.badge==='Trend'?'badge-hot':'';
+    return `<div class="product-card ${p.stock===0?'out-of-stock':''}">
+      <div class="product-img">${p.emoji}${p.badge?`<div class="product-badge ${bc}">${p.badge}</div>`:''}</div>
+      <div class="product-info">
+        <div class="product-category">${p.cat}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-desc">${p.desc}</div>
+        <div class="product-footer">
+          <div>
+            <div class="product-price">₺${p.price.toLocaleString('tr')}${p.old?`<small>₺${p.old.toLocaleString('tr')}</small>`:''}</div>
+            <div class="stock-tag">${p.stock>0?`✓ ${p.stock} adet stokta`:'✕ Stok tükendi'}</div>
+          </div>
+          <button class="add-btn" onclick="addCart(${p.id})" ${p.stock===0?'disabled':''}>+</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  document.getElementById('statP').textContent=products.length;
+  document.getElementById('statS').textContent=products.reduce((a,p)=>a+p.sales,0)+'+';
+}
 
-        let bird, pipes, frame, score, gameOver, birdColor, animationFrameId;
-        let gameStarted = false;
+function addCart(id){
+  const p=products.find(x=>x.id===id);if(!p||p.stock===0)return;
+  const ex=cart.find(x=>x.id===id);
+  if(ex)ex.qty++;else cart.push({id,name:p.name,price:p.price,emoji:p.emoji,qty:1});
+  updateCart();toast(`"${p.name}" sepete eklendi ✓`);
+}
+function removeCart(id){cart=cart.filter(x=>x.id!==id);updateCart();}
+function qtyChange(id,d){const i=cart.find(x=>x.id===id);if(i){i.qty+=d;if(i.qty<=0)removeCart(id);}updateCart();}
+function updateCart(){
+  const total=cart.reduce((s,x)=>s+x.price*x.qty,0);
+  const count=cart.reduce((s,x)=>s+x.qty,0);
+  document.getElementById('cartCount').textContent=count;
+  document.getElementById('cartTotal').textContent='₺'+total.toLocaleString('tr');
+  const el=document.getElementById('cartItems');
+  if(!cart.length){el.innerHTML='<div class="empty-cart"><div class="icon">🛒</div><p style="font-size:14px">Sepetiniz boş</p></div>';return;}
+  el.innerHTML=cart.map(x=>`<div class="cart-item">
+    <div class="cart-item-img">${x.emoji}</div>
+    <div class="cart-item-details">
+      <div class="cart-item-name">${x.name}</div>
+      <div class="cart-item-price">₺${x.price.toLocaleString('tr')}</div>
+      <div class="cart-item-qty"><button class="qty-btn" onclick="qtyChange(${x.id},-1)">−</button><span style="font-size:13px">${x.qty}</span><button class="qty-btn" onclick="qtyChange(${x.id},1)">+</button></div>
+    </div>
+    <button class="cart-item-remove" onclick="removeCart(${x.id})">✕</button>
+  </div>`).join('');
+}
+function toggleCart(){cartOpen=!cartOpen;document.body.classList.toggle('cart-open',cartOpen);}
+function checkout(){
+  if(!cart.length){toast('Sepetiniz boş!');return;}
+  const total=cart.reduce((s,x)=>s+x.price*x.qty,0);
+  const items=cart.map(x=>`${x.name} x${x.qty}`).join(', ');
+  orders.unshift({id:3000+orders.length+1,customer:'Yeni Müşteri',items,total,date:new Date().toISOString().split('T')[0],status:'bekliyor'});
+  cart=[];updateCart();toggleCart();toast('Siparişiniz alındı! Teşekkürler 🎉');
+}
 
-        function init() {
-            if(animationFrameId) cancelAnimationFrame(animationFrameId);
-            bird = { x: 80, y: 300, radius: 15, gravity: 0.6, velocity: 0, lift: -12, wing: 0, mouthOpen: true };
-            pipes = []; frame = 0; score = 0; gameOver = false; gameStarted = false;
-            restartBtn.style.display = "none";
-            redBtn.style.display = "block"; yellowBtn.style.display = "block"; blueBtn.style.display = "block";
-            drawBackground(); 
-            addFlappyListeners();
-        }
+function renderDash(){
+  const rev=orders.reduce((s,o)=>s+o.total,0);
+  const sales=products.reduce((s,p)=>s+p.sales,0);
+  const pend=orders.filter(o=>o.status==='bekliyor'||o.status==='hazırlanıyor').length;
+  document.getElementById('dashStats').innerHTML=`
+    <div class="stat-card"><div class="lbl">Toplam Hasılat</div><div class="val gr">₺${rev.toLocaleString('tr')}</div><div class="chg up">↑ %14 önceki ay</div></div>
+    <div class="stat-card"><div class="lbl">Toplam Sipariş</div><div class="val">${orders.length}</div><div class="chg">${pend} bekliyor</div></div>
+    <div class="stat-card"><div class="lbl">Aktif Ürün</div><div class="val">${products.length}</div><div class="chg">${products.filter(p=>p.stock===0).length} stok tükendi</div></div>
+    <div class="stat-card"><div class="lbl">Toplam Satış</div><div class="val gr">${sales}</div><div class="chg up">↑ %9 bu hafta</div></div>`;
+  const vals=[18,27,14,32,21,38,29],mx=Math.max(...vals);
+  document.getElementById('salesChart').innerHTML=vals.map(v=>`<div class="bar-col"><div class="bar" style="height:${(v/mx)*90}px"></div><span class="bar-lbl">${v}</span></div>`).join('');
+  document.getElementById('recentMini').innerHTML=orders.slice(0,5).map(o=>`
+    <div style="padding:10px 18px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">
+      <div><div style="font-size:13px;font-weight:600;color:var(--text)">${o.customer}</div><div style="font-size:10px;color:var(--textDim)">${o.date}</div></div>
+      <div style="text-align:right"><div style="font-size:13px;color:var(--accent3);font-weight:700">₺${o.total.toLocaleString('tr')}</div><span class="bdg ${sb(o.status)}">${o.status}</span></div>
+    </div>`).join('');
+}
 
-        function removeFlappyListeners() {
-            document.removeEventListener("keydown", handleJump);
-            canvas.removeEventListener("click", handleJump);
-        }
+function renderAdminP(){
+  const q=(document.getElementById('pSearch')?.value||'').toLowerCase();
+  const rows=products.filter(p=>p.name.toLowerCase().includes(q)||p.cat.toLowerCase().includes(q));
+  document.getElementById('adminPTable').innerHTML=rows.map(p=>`<tr>
+    <td><span style="font-size:20px;margin-right:8px">${p.emoji}</span><b style="color:var(--white)">${p.name}</b></td>
+    <td style="color:var(--accent)">${p.cat}</td>
+    <td>₺${p.price.toLocaleString('tr')}${p.old?`<br><span style="font-size:11px;color:var(--textDim);text-decoration:line-through">₺${p.old.toLocaleString('tr')}</span>`:''}</td>
+    <td><b ${p.stock===0?'style="color:#ef4444"':''}>${p.stock}</b></td>
+    <td>${p.sales}</td>
+    <td><span class="bdg ${p.stock>0?'bg':'br'}">${p.stock>0?'Aktif':'Tükendi'}</span></td>
+    <td><button class="act-btn" onclick="editP(${p.id})">✏ Düzenle</button><button class="act-btn del" onclick="delP(${p.id})">🗑 Sil</button></td>
+  </tr>`).join('');
+}
 
-        function addFlappyListeners() {
-            removeFlappyListeners();
-            document.addEventListener("keydown", handleJump);
-            canvas.addEventListener("click", handleJump);
-        }
-        
-        function handleJump(e) {
-            if (e.type === 'keydown' && e.code !== 'Space' && e.key !== 'ArrowUp') return;
-            if(!gameStarted || gameOver) return;
-            bird.velocity = bird.lift; bird.wing = 1; bird.mouthOpen = true;
-            if (e.type === 'keydown') e.preventDefault(); 
-        }
+function editP(id){
+  const p=products.find(x=>x.id===id);if(!p)return;
+  editId=id;
+  document.getElementById('addTitle').textContent='Ürünü Düzenle';
+  document.getElementById('savePBtn').textContent='✓ Güncelle';
+  document.getElementById('fName').value=p.name;
+  document.getElementById('fCat').value=p.cat;
+  document.getElementById('fPrice').value=p.price;
+  document.getElementById('fOld').value=p.old||'';
+  document.getElementById('fStock').value=p.stock;
+  document.getElementById('fBadge').value=p.badge;
+  document.getElementById('fDesc').value=p.desc;
+  selE=p.emoji;
+  document.querySelectorAll('.emoji-opt').forEach(e=>e.classList.toggle('sel',e.dataset.e===p.emoji));
+  showAP('add',document.querySelectorAll('.s-item')[2]);
+}
 
-        redBtn.addEventListener("click", () => startGame("red"));
-        yellowBtn.addEventListener("click", () => startGame("yellow"));
-        blueBtn.addEventListener("click", () => startGame("blue"));
-        restartBtn.addEventListener("click", init);
+function delP(id){
+  if(!confirm('Bu ürünü silmek istediğinize emin misiniz?'))return;
+  products=products.filter(p=>p.id!==id);
+  renderAdminP();renderDash();renderShop();toast('Ürün silindi.');
+}
 
+function saveP(){
+  const name=document.getElementById('fName').value.trim();
+  const cat=document.getElementById('fCat').value;
+  const price=parseInt(document.getElementById('fPrice').value);
+  const old=parseInt(document.getElementById('fOld').value)||null;
+  const stock=parseInt(document.getElementById('fStock').value);
+  const badge=document.getElementById('fBadge').value.trim();
+  const desc=document.getElementById('fDesc').value.trim();
+  if(!name||!cat||!price||isNaN(stock)){toast('⚠ Gerekli alanları doldurun!');return;}
+  if(editId){
+    const i=products.findIndex(p=>p.id===editId);
+    if(i!==-1)products[i]={...products[i],name,cat,price,old,stock,badge,desc,emoji:selE};
+    toast('Ürün güncellendi!');editId=null;
+  }else{
+    products.push({id:nxtId++,name,cat,price,old,stock,badge,desc,emoji:selE,sales:0});
+    toast('Yeni ürün eklendi!');
+  }
+  cancelP();renderAdminP();renderDash();renderReport();renderShop();
+}
 
-        function startGame(color) {
-            birdColor = color; gameStarted = true;
-            redBtn.style.display = "none"; yellowBtn.style.display = "none"; blueBtn.style.display = "none";
-            update();
-        }
-        
-        function createPipe() { 
-            let gap = 140; let height = Math.random() * 200 + 50;
-            pipes.push({ x: canvas.width, y: 0, width: 50, height: height, passed: false });
-            pipes.push({ x: canvas.width, y: height + gap, width: 50, height: canvas.height - height - gap, passed: false });
-        }
+function cancelP(){
+  editId=null;
+  document.getElementById('addTitle').textContent='Yeni Ürün Ekle';
+  document.getElementById('savePBtn').textContent='✓ Kaydet';
+  ['fName','fPrice','fOld','fStock','fBadge','fDesc'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('fCat').value='';
+}
 
-        function drawBackground() { 
-            ctx.fillStyle = "#70c5ce"; ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = "#f4d35e"; ctx.beginPath(); ctx.arc(350, 80, 40, 0, Math.PI * 2); ctx.fill();
-            ctx.fillStyle = "rgba(255,255,255,0.8)";
-            ctx.beginPath(); ctx.ellipse((frame * 0.3) % 500, 80, 40, 20, 0, 0, Math.PI * 2); ctx.fill();
-            ctx.beginPath(); ctx.ellipse((400 - (frame * 0.5) % 500), 120, 50, 25, 0, 0, Math.PI * 2); ctx.fill();
-            ctx.fillStyle = "#5fa05f"; ctx.fillRect(0, canvas.height - 50, canvas.width, 50);
-            ctx.fillStyle = "rgba(0,0,0,0.2)"; ctx.fillRect(0, canvas.height - 50, canvas.width, 10);
-        }
+function sb(s){return s==='teslim'?'bg':s==='kargoda'?'bb':s==='hazırlanıyor'?'by':'br';}
 
-        function drawBird() { 
-            ctx.save();
-            ctx.translate(bird.x, bird.y);
-            let angle = Math.min(Math.max(bird.velocity * 2, -30), 90) * Math.PI / 180;
-            ctx.rotate(angle);
-            let grad = ctx.createRadialGradient(0, 0, bird.radius / 3, 0, 0, bird.radius);
-            if (birdColor === "red") { grad.addColorStop(0, "#ff4d4d"); grad.addColorStop(1, "#b30000"); }
-            if (birdColor === "yellow") { grad.addColorStop(0, "#ffd700"); grad.addColorStop(1, "#e6b800"); }
-            if (birdColor === "blue") { grad.addColorStop(0, "#4da6ff"); grad.addColorStop(1, "#004d99"); }
-            ctx.fillStyle = grad;
-            ctx.beginPath(); ctx.ellipse(0, 0, bird.radius, bird.radius * 0.8, 0, 0, Math.PI * 2); ctx.fill(); ctx.strokeStyle = "#e6b800"; ctx.stroke();
-            ctx.fillStyle = "#ffa500";
-            let wingOffset = Math.sin(frame * 0.3 + bird.wing * Math.PI) * 5;
-            ctx.beginPath(); ctx.ellipse(-bird.radius / 2, wingOffset, bird.radius / 2, bird.radius / 4, 0, 0, Math.PI * 2); ctx.fill();
-            ctx.fillStyle = "white";
-            ctx.beginPath(); ctx.arc(bird.radius / 3, -bird.radius / 4, 4, 0, Math.PI * 2); ctx.arc(bird.radius / 3, bird.radius / 4, 4, 0, Math.PI * 2); ctx.fill();
-            ctx.fillStyle = "black";
-            ctx.beginPath(); ctx.arc(bird.radius / 3, -bird.radius / 4, 2, 0, Math.PI * 2); ctx.arc(bird.radius / 3, bird.radius / 4, 2, 0, Math.PI * 2); ctx.fill();
-            if (bird.mouthOpen) { ctx.fillStyle = "red"; ctx.beginPath(); ctx.moveTo(bird.radius, 0); ctx.lineTo(bird.radius + 5, -3); ctx.lineTo(bird.radius + 5, 3); ctx.closePath(); ctx.fill(); bird.mouthOpen = false; }
-            ctx.restore();
-            if (bird.wing > 0) bird.wing -= 0.1;
-        }
+function renderOrders(){
+  document.getElementById('ordersT').innerHTML=orders.map(o=>`<tr>
+    <td><b>#${o.id}</b></td>
+    <td>${o.customer}</td>
+    <td style="max-width:180px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--textMid)">${o.items}</td>
+    <td><b style="color:var(--accent3)">₺${o.total.toLocaleString('tr')}</b></td>
+    <td style="color:var(--textDim)">${o.date}</td>
+    <td><span class="bdg ${sb(o.status)}">${o.status}</span></td>
+    <td><select onchange="updOrder(${o.id},this.value)" style="background:var(--g2);border:1px solid var(--border);color:var(--text);padding:4px 8px;border-radius:5px;font-size:11px;cursor:pointer;font-family:'Outfit',sans-serif">
+      <option value="bekliyor" ${o.status==='bekliyor'?'selected':''}>Bekliyor</option>
+      <option value="hazırlanıyor" ${o.status==='hazırlanıyor'?'selected':''}>Hazırlanıyor</option>
+      <option value="kargoda" ${o.status==='kargoda'?'selected':''}>Kargoda</option>
+      <option value="teslim" ${o.status==='teslim'?'selected':''}>Teslim</option>
+    </select></td>
+  </tr>`).join('');
+}
 
-        function drawPipes() { 
-            pipes.forEach(pipe => {
-                ctx.fillStyle = "#2e7d32"; ctx.fillRect(pipe.x, pipe.y, pipe.width, pipe.height);
-                ctx.fillStyle = "rgba(0,0,0,0.2)";
-                if (pipe.y === 0) ctx.fillRect(pipe.x + pipe.width - 10, pipe.y, 10, pipe.height);
-                else ctx.fillRect(pipe.x, pipe.y, 10, pipe.height);
-            });
-        }
+function updOrder(id,s){
+  const o=orders.find(x=>x.id===id);
+  if(o){o.status=s;renderOrders();renderDash();toast('Sipariş durumu güncellendi.');}
+}
 
-        function update() {
-            if (!gameStarted) return; if (gameOver) { restartBtn.style.display = "block"; return; }
-            drawBackground(); bird.velocity += bird.gravity; bird.y += bird.velocity;
-            if (frame % 100 === 0) createPipe();
+function renderReport(){
+  const rev=orders.reduce((s,o)=>s+o.total,0);
+  const sales=products.reduce((s,p)=>s+p.sales,0);
+  const avg=orders.length?Math.round(rev/orders.length):0;
+  document.getElementById('repStats').innerHTML=`
+    <div class="stat-card"><div class="lbl">Toplam Hasılat</div><div class="val gr">₺${rev.toLocaleString('tr')}</div></div>
+    <div class="stat-card"><div class="lbl">Toplam Satış</div><div class="val">${sales}</div></div>
+    <div class="stat-card"><div class="lbl">Ort. Sipariş</div><div class="val">₺${avg.toLocaleString('tr')}</div></div>
+    <div class="stat-card"><div class="lbl">Teslim Edilen</div><div class="val gr">${orders.filter(o=>o.status==='teslim').length}</div></div>`;
+  const cats=[...new Set(products.map(p=>p.cat))];
+  document.getElementById('catTable').innerHTML=cats.map(cat=>{
+    const ps=products.filter(p=>p.cat===cat);
+    const ts=ps.reduce((s,p)=>s+p.sales,0);
+    const re=ps.reduce((s,p)=>s+p.price*p.sales,0);
+    return `<tr><td><b>${cat}</b></td><td>${ps.length}</td><td>${ts}</td><td style="color:var(--accent3)">₺${re.toLocaleString('tr')}</td><td><span class="bdg bg">Aktif</span></td></tr>`;
+  }).join('');
+  const sorted=[...products].sort((a,b)=>b.sales-a.sales).slice(0,6);
+  document.getElementById('topT').innerHTML=sorted.map(p=>`<tr>
+    <td>${p.emoji} <b style="color:var(--white)">${p.name}</b></td>
+    <td>${p.sales} adet</td>
+    <td style="color:var(--accent3)">₺${(p.price*p.sales).toLocaleString('tr')}</td>
+    <td><span class="bdg ${p.stock>0?'bg':'br'}">${p.stock}</span></td>
+  </tr>`).join('');
+}
 
-            pipes.forEach(pipe => {
-                pipe.x -= 3;
-                if (bird.x + bird.radius > pipe.x && bird.x - bird.radius < pipe.x + pipe.width &&
-                    (bird.y - bird.radius < pipe.height && pipe.y === 0 || bird.y + bird.radius > pipe.y && pipe.y !== 0)) { gameOver = true; }
-                if (!pipe.passed && pipe.y === 0 && pipe.x + pipe.width < bird.x) { score++; pipe.passed = true; }
-            });
+function pickE(el){document.querySelectorAll('.emoji-opt').forEach(e=>e.classList.remove('sel'));el.classList.add('sel');selE=el.dataset.e;}
 
-            pipes = pipes.filter(pipe => pipe.x + pipe.width > 0);
-            drawPipes(); drawBird();
-            ctx.fillStyle = "white"; ctx.font = "30px 'Press Start 2P', monospace"; ctx.fillText("Score: " + score, 10, 50);
-            if (bird.y + bird.radius > canvas.height - 50 || bird.y - bird.radius < 0) gameOver = true;
-            frame++;
-            animationFrameId = requestAnimationFrame(update);
-        }
-        
-        document.addEventListener('DOMContentLoaded', showMainSection);
+function toast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2800);
+}
 
-    </script>
+renderShop();
+</script>
 </body>
 </html>
